@@ -22,9 +22,9 @@ const log = {
 function displayHeader() {
     process.stdout.write('\x1Bc'); // 清屏
     console.log(chalk.yellow("╔════════════════════════════════════════╗"));
-    console.log(chalk.yellow("║            🚀  teneo节点挂机 🚀            ║"));
-    console.log(chalk.yellow("║       👤    脚本编写：@qklxsqf            ║"));
-    console.log(chalk.yellow("║       📢  电报频道：https://t.me/ksqxszq   ║"));
+    console.log(chalk.yellow("║          🚀  teneo节点挂机 🚀         ║"));
+    console.log(chalk.yellow("║     👤    脚本编写：@qklxsqf           ║"));
+    console.log(chalk.yellow("║   📢  电报频道：https://t.me/ksqxszq   ║"));
     console.log(chalk.yellow("╚════════════════════════════════════════╝"));
     console.log(); // 空行
 }

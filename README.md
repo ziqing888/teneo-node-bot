@@ -9,81 +9,80 @@ Teneo 机器人是一个自动化的脚本项目，用于批量管理多个账�
 
 首先，您需要克隆 GitHub 上的项目代码，然后安装项目所需的依赖。
 
-1. 克隆项目代码：
+1. 克隆存储库：
    ```bash
    git clone https://github.com/ziqing888/teneo-node-bot.git
+    ```
+2.导航到项目目录
+
+```bash
    cd teneo-node-bot
 
    ```
 
-2. 安装依赖：
+3. 安装依赖：
    ```bash
    npm install
    ```
-   这会自动安装项目所需的所有 npm 依赖，包括 `axios`、`colors`、`https-proxy-agent` 和 `ws`。
-
+   
 ### 配置文件
 在运行项目之前，您需要正确配置账户和代理。
 
-1. **用户账户配置**
-   - 文件路径：`config/account.js`
-   - 用于存储用户账户信息（如邮箱和密码）。
-   ```javascript
-   module.exports = [
-     {
-       email: "account1@example.com",
-       password: "password1"
-     },
-     {
-       email: "account2@example.com",
-       password: "password2"
-     }
-     // 根据需要添加更多账户
-   ];
+用户账户配置
+
+文件路径：account.js
+用于存储用户账户信息（如邮箱和密码）
+
+ ```bash
+module.exports = [
+  {
+    邮箱: "account1@example.com",
+    密码: "password1"
+  },
+  {
+    邮箱: "account2@example.com",
+    密码: "password2"
+  }
+  // 根据需要添加更多账户
+];
+
+
    ```
+代理服务器配置（可选）
 
-2. **代理服务器配置（可选）**
-   - 文件路径：`config/proxy.js`
-   - 用于配置代理服务器信息（如主机、端口和身份验证）。
-   ```javascript
-   module.exports = [
-     {
-       host: "proxy1.example.com",// 代理服务器的主机名或 IP 地址
-       port: 8080,  // 代理服务器的端口号，用于代理连接
-       username: "proxyuser1",//代理服务器的用户名，如果代理需要身份验证，请填写
-       password: "proxypass1"// 代理服务器的密码，如果代理需要身份验证，请填写
-     },
-     {
-       host: "proxy2.example.com",
-       port: 8080,
-       username: "proxyuser2",
-       password: "proxypass2"
-     }
-     // 根据需要添加更多代理
-   ];
-   ```
+文件路径：proxy.js
+用于配置代理服务器信息（如主机、端口和身份验证）。
+  ```bash
+module.exports = [
+  {
+    主机: "proxy1.example.com", // 代理服务器的主机名或 IP 地址
+    端口: 8080,  // 代理服务器的端口号，用于代理连接
+    用户名: "proxyuser1", // 代理服务器的用户名，如果代理需要身份验证，请填写
+    密码: "proxypass1" // 代理服务器的密码，如果代理需要身份验证，请填写
+  },
+  {
+    主机: "proxy2.example.com",
+    端口: 8080,
+    用户名: "proxyuser2",
+    密码: "proxypass2"
+  }
+  // 根据需要添加更多代理
+];
+ ```
+###运行项目
+启动项目
 
-### 运行项目
+使用以下命令启动bot：
+  ```bash
+npm start
 
-1. **启动项目**
-   - 使用以下命令启动项目：
-   ```bash
-   npm start
-   ```
+ ```
+### 运行效果
 
-2. **运行效果**
-   - 运行后，您将会看到控制台输出项目的标题信息、账户信息以及连接状态等。
-   - 每个账户都会按顺序被启动，并通过 WebSocket 进行通信。
+运行后，您将会看到控制台输出项目的标题信息、账户信息以及连接状态等。
+每个账户都会按顺序被启动，并通过 WebSocket 进行通信。
+## 注意事项
+代理配置
 
-
-
-### 注意事项
-
-
-
-1. **代理配置**
-   - 如果您不需要代理，可以将 `config/proxy.js` 文件内容留空，或直接将 `useProxy` 设置为 `false`。
-
-2. **断开与重连**
-   - WebSocket 连接断开后会自动尝试重新连接，确保连接稳定性。
+如果您不需要代理，可以将 proxy.js 文件内容留空，或直接在 config.js 中将 使用代理 设置为 false。
 

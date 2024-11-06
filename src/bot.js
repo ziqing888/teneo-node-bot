@@ -4,11 +4,15 @@ const WebSocket = require('ws');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const accounts = require('../config/account');
 const proxies = require('../config/proxy');
-const { useProxy } = require('../config/config');
 const { log_info, log_success, log_warning, log_error, displayHeader } = require('./logger');
 
 let sockets = [];
 let userIds = [];
+
+// 配置项硬编码
+const useProxy = false; // 是否使用代理
+const authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"; // 授权令牌
+const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"; // API 密钥
 
 async function getUserId(index) {
   const loginUrl = "https://ikknngrgxuxgjhplbpey.supabase.co/auth/v1/token?grant_type=password";
@@ -22,8 +26,8 @@ async function getUserId(index) {
       password: accounts[index].password
     }, {
       headers: {
-        'Authorization': "your_authorization_here",
-        'apikey': "your_api_key_here"
+        'Authorization': authorization,
+        'apikey': apikey
       },
       httpsAgent: agent
     });

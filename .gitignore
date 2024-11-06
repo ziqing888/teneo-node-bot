@@ -1,1 +1,4 @@
 node_modules/
+config/account.js
+config/proxy.js
+

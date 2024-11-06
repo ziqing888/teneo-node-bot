@@ -23,7 +23,7 @@ const log = {
 function displayHeader() {
     process.stdout.write('\x1Bc'); // 清屏
     console.log(chalk.yellow("╔════════════════════════════════════════╗"));
-    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀              ║"));
+    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀             ║"));
     console.log(chalk.yellow("║  👤    脚本编写：@qklxsqf              ║"));
     console.log(chalk.yellow("║  📢  电报频道：https://t.me/ksqxszq    ║"));
     console.log(chalk.yellow("╚════════════════════════════════════════╝"));
@@ -135,6 +135,37 @@ async function connectWebSocket(index, userId) {
   };
 }
 
+// 倒计时和积分更新
+function startCountdownAndPoints(index) {
+  clearInterval(倒计时间隔[index]);
+  updateCountdownAndPoints(index);
+  倒计时间隔[index] = setInterval(() => updateCountdownAndPoints(index), 1000);
+}
+
+// 更新倒计时和积分
+async function updateCountdownAndPoints(index) {
+  const restartThreshold = 60000;
+  const now = new Date();
+  const nextHeartbeat = new Date(上次更新时间[index]);
+  nextHeartbeat.setMinutes(nextHeartbeat.getMinutes() + 15);
+  const diff = nextHeartbeat.getTime() - now.getTime();
+
+  if (diff > 0) {
+    const minutes = Math.floor(diff / 60000);
+    const seconds = Math.floor((diff % 60000) / 1000);
+    倒计时[index] = `${minutes}m ${seconds}s`;
+
+    const maxPoints = 25;
+    const timeElapsedMinutes = (now - new Date(上次更新时间[index])) / (60 * 1000);
+    潜在积分[index] = Math.min(maxPoints, (timeElapsedMinutes / 15) * maxPoints);
+  } else {
+    倒计时[index] = "Calculating...";
+    潜在积分[index] = 25;
+  }
+
+  logAllAccounts();
+}
+
 // 显示账户详细数据
 function displayAccountData(index) {
   console.log(chalk.cyan(`======= 账户 ${index + 1} =======`));
@@ -165,37 +196,6 @@ function startHeartbeat(index) {
       log.info(`账户 ${index + 1} 发送心跳`);
     }
   }, 10000);
-}
-
-// 倒计时和积分更新
-function startCountdownAndPoints(index) {
-  clearInterval(倒计时间隔[index]);
-  updateCountdownAndPoints(index);
-  倒计时间隔[index] = setInterval(() => updateCountdownAndPoints(index), 1000);
-}
-
-// 更新倒计时和积分
-async function updateCountdownAndPoints(index) {
-  const restartThreshold = 60000;
-  const now = new Date();
-  const nextHeartbeat = new Date(上次更新时间[index]);
-  nextHeartbeat.setMinutes(nextHeartbeat.getMinutes() + 15);
-  const diff = nextHeartbeat.getTime() - now.getTime();
-
-  if (diff > 0) {
-    const minutes = Math.floor(diff / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    倒计时[index] = `${minutes}m ${seconds}s`;
-
-    const maxPoints = 25;
-    const timeElapsedMinutes = (now - new Date(上次更新时间[index])) / (60 * 1000);
-    潜在积分[index] = Math.min(maxPoints, (timeElapsedMinutes / 15) * maxPoints);
-  } else {
-    倒计时[index] = "Calculating...";
-    潜在积分[index] = 25;
-  }
-
-  logAllAccounts();
 }
 
 // 启动程序

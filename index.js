@@ -21,12 +21,12 @@ const log = {
 
 // 显示标题
 function displayHeader() {
-    process.stdout.write('\x1Bc');
-    console.log(`${YELLOW}╔════════════════════════════════════════╗`);
-    console.log(`${YELLOW}║      🚀  teneo节点挂机 🚀             ║`);
-    console.log(`${YELLOW}║  👤    脚本编写：@qklxsqf              ║`);
-    console.log(`${YELLOW}║  📢  电报频道：https://t.me/ksqxszq    ║`);
-    console.log(`${YELLOW}╚════════════════════════════════════════╝`);
+    process.stdout.write('\x1Bc'); // 清屏
+    console.log(chalk.yellow("╔════════════════════════════════════════╗"));
+    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀             ║"));
+    console.log(chalk.yellow("║  👤    脚本编写：@qklxsqf              ║"));
+    console.log(chalk.yellow("║  📢  电报频道：https://t.me/ksqxszq    ║"));
+    console.log(chalk.yellow("╚════════════════════════════════════════╝"));
     console.log(); // 空行
 }
 

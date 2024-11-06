@@ -30,7 +30,7 @@ const 接口密钥 = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 function 显示标题() {
     process.stdout.write('\x1Bc'); // 清屏
     console.log(chalk.yellow("╔════════════════════════════════════════╗"));
-    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀             ║"));
+    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀              ║"));
     console.log(chalk.yellow("║  👤    脚本编写：@qklxsqf              ║"));
     console.log(chalk.yellow("║  📢  电报频道：https://t.me/ksqxszq    ║"));
     console.log(chalk.yellow("╚════════════════════════════════════════╝"));

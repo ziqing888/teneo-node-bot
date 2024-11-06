@@ -1,4 +1,4 @@
-# Teneo 机器人使用指南
+# Teneo 节点 bot 使用指南
 
 
 

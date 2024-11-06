@@ -47,10 +47,10 @@ Teneo 机器人是一个自动化的脚本项目，用于批量管理多个账�
    ```javascript
    module.exports = [
      {
-       host: "proxy1.example.com",
-       port: 8080,
-       username: "proxyuser1",
-       password: "proxypass1"
+       host: "proxy1.example.com",// 代理服务器的主机名或 IP 地址
+       port: 8080,  // 代理服务器的端口号，用于代理连接
+       username: "proxyuser1",//代理服务器的用户名，如果代理需要身份验证，请填写
+       password: "proxypass1"// 代理服务器的密码，如果代理需要身份验证，请填写
      },
      {
        host: "proxy2.example.com",

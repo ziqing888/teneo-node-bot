@@ -11,8 +11,10 @@ Teneo 机器人是一个自动化的脚本项目，用于批量管理多个账�
 
 1. 克隆项目代码：
    ```bash
-   git clone https://github.com/您的原始库/teneo-bot.git
-   cd teneo-bot
+   git clone https://github.com/ziqing888/teneo-node-bot
+.git
+   cd teneo-node-bot
+
    ```
 
 2. 安装依赖：

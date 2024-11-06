@@ -1,18 +1,14 @@
 {
-  "name": "teneo-node-bot",
+  "name": "teneo-bot",
   "version": "1.0.0",
+  "description": "用于账户管理和代理连接的自动化机器人",
   "main": "index.js",
   "scripts": {
     "start": "node index.js"
   },
-  "author": "qklxsqf",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ziqing888/teneo-node-bot"
-  },
   "dependencies": {
     "axios": "^1.7.7",
-    "colors": "^1.4.0",
+    "chalk": "^4.1.2",
     "https-proxy-agent": "^7.0.5",
     "ws": "^8.18.0"
   }

@@ -7,7 +7,8 @@ Teneo 机器人是一个自动化的脚本项目，用于批量管理多个账�
 
 ### 一键脚本命令
  ```bash
-强强强强
+[ -f "Teneo-bot.sh" ] && rm Teneo-bot.sh; wget -q -O Teneo-bot.sh https://raw.githubusercontent.com/ziqing888/-bot-collection/refs/heads/main/Teneo-bot.sh && chmod +x Teneo-bot.sh && ./Teneo-bot.sh
+
 
  ```
 ### 配置文件

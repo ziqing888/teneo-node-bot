@@ -1,38 +1,26 @@
-// bot.js 文件
-
 const axios = require('axios');
 const chalk = require('chalk');
 const WebSocket = require('ws');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const accounts = require('../config/account');
 const proxies = require('../config/proxy');
-const { useProxy } = require('../config/config');  // 引入 config.js 中的 useProxy 设置
+const { useProxy } = require('../config/config');
 const { log_info, log_success, log_warning, log_error, displayHeader } = require('./logger');
 
 // 硬编码的配置数据
 const authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"; // 授权令牌，硬编码在这里
 const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag"; // API 密钥，硬编码在这里
 
+// 全局变量定义
 let sockets = [];
 let userIds = [];
-
-// 定义 startCountdownAndPoints 函数
-function startCountdownAndPoints(index) {
-  // 清除已有的倒计时
-  clearInterval(countdownIntervals[index]);
-  updateCountdownAndPoints(index);
-  countdownIntervals[index] = setInterval(() => updateCountdownAndPoints(index), 1000);
-}
-
-async function updateCountdownAndPoints(index) {
-  // 省略了原函数的内容（与之前相同）
-}
+let countdownIntervals = []; // 新增的变量，存储每个账户的倒计时 interval
 
 async function getUserId(index) {
   const loginUrl = "https://ikknngrgxuxgjhplbpey.supabase.co/auth/v1/token?grant_type=password";
 
   const proxy = proxies[index % proxies.length];
-  const agent = useProxy ? new HttpsProxyAgent(`http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`) : null; // 根据 useProxy 决定是否设置代理
+  const agent = useProxy ? new HttpsProxyAgent(`http://${proxy.username}:${proxy.password}@${proxy.host}:${proxy.port}`) : null;
 
   try {
     const response = await axios.post(loginUrl, {
@@ -43,7 +31,7 @@ async function getUserId(index) {
         'Authorization': authorization,
         'apikey': apikey
       },
-      httpsAgent: agent // 使用代理
+      httpsAgent: agent
     });
 
     userIds[index] = response.data.user.id;
@@ -99,6 +87,17 @@ function restartAccountProcess(index) {
   setTimeout(() => {
     getUserId(index);
   }, 5000);
+}
+
+// 启动倒计时和积分计算
+function startCountdownAndPoints(index) {
+  clearInterval(countdownIntervals[index]);  // 清除已有的倒计时
+  updateCountdownAndPoints(index);
+  countdownIntervals[index] = setInterval(() => updateCountdownAndPoints(index), 1000);
+}
+
+async function updateCountdownAndPoints(index) {
+  // 假设这里有一些逻辑来更新倒计时和积分
 }
 
 // 启动所有账户

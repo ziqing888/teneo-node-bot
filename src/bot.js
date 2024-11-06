@@ -1,4 +1,3 @@
-// 修改后的 teneo-机器人项目的 bot.js
 const axios = require('axios');
 const logger = require('./src/logger');
 const { connectWebSocket } = require('./src/websocketManager');

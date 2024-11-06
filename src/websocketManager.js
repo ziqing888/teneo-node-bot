@@ -1,7 +1,8 @@
+// WebSocket 管理模块 websocketManager.js
 const WebSocket = require('ws');
 const { HttpsProxyAgent } = require('https-proxy-agent');
 const logger = require('./logger');
-const proxies = require('../config/proxyConfig.json');
+const proxies = require('../config/proxy.js');
 
 let sockets = [];
 let pingIntervals = [];
@@ -24,7 +25,7 @@ function startPinging(index) {
   pingIntervals[index] = setInterval(() => {
     if (sockets[index].readyState === WebSocket.OPEN) {
       sockets[index].send(JSON.stringify({ type: "PING" }));
-      logger.info(`Ping sent to Account ${index + 1}`);
+      logger.info(`Ping 发送到账户 ${index + 1}`);
     }
   }, 10000);
 }
@@ -35,7 +36,7 @@ function disconnectWebSocket(index) {
     sockets[index].close();
     sockets[index] = null;
     clearInterval(pingIntervals[index]);
-    logger.info(`Account ${index + 1} Disconnected`);
+    logger.info(`账户 ${index + 1} 已断开连接`);
   }
 }
 
@@ -44,20 +45,20 @@ function connectWebSocket(index, userId) {
   try {
     sockets[index] = createWebSocket(index, userId);
     sockets[index].on('open', () => {
-      logger.success(`Account ${index + 1} Connected`);
+      logger.success(`账户 ${index + 1} 已连接`);
       startPinging(index);
     });
 
     sockets[index].on('close', () => {
-      logger.warning(`Account ${index + 1} Disconnected, Reconnecting...`);
+      logger.warning(`账户 ${index + 1} 已断开连接，正在重新连接...`);
       connectWebSocket(index, userId);
     });
 
     sockets[index].on('error', (error) => {
-      logger.error(`WebSocket Error for Account ${index + 1}: ${error.message}`);
+      logger.error(`账户 ${index + 1} 的 WebSocket 错误: ${error.message}`);
     });
   } catch (error) {
-    logger.error(`Failed to connect Account ${index + 1}: ${error.message}`);
+    logger.error(`账户 ${index + 1} 连接失败: ${error.message}`);
   }
 }
 

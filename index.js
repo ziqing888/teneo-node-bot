@@ -2,7 +2,6 @@ const axios = require('axios');
 const chalk = require('chalk');
 const WebSocket = require('ws');
 const { HttpsProxyAgent } = require('https-proxy-agent');
-const readline = require('readline');
 const 账户 = require('./account.js');
 const 代理列表 = require('./proxy.js');
 const { 使用代理 } = require('./config.js');
@@ -23,12 +22,13 @@ const log = {
 function displayHeader() {
     process.stdout.write('\x1Bc'); // 清屏
     console.log(chalk.yellow("╔════════════════════════════════════════╗"));
-    console.log(chalk.yellow("║      🚀  teneo节点挂机 🚀             ║"));
-    console.log(chalk.yellow("║  👤    脚本编写：@qklxsqf              ║"));
-    console.log(chalk.yellow("║  📢  电报频道：https://t.me/ksqxszq    ║"));
+    console.log(chalk.yellow("║            🚀  teneo节点挂机 🚀            ║"));
+    console.log(chalk.yellow("║       👤    脚本编写：@qklxsqf            ║"));
+    console.log(chalk.yellow("║       📢  电报频道：https://t.me/ksqxszq   ║"));
     console.log(chalk.yellow("╚════════════════════════════════════════╝"));
     console.log(); // 空行
 }
+
 
 // 全局变量
 let 套接字 = [];
@@ -127,7 +127,6 @@ async function connectWebSocket(index, userId) {
       logAllAccounts();
     }
 
-    // 检查服务器心跳消息
     if (data.message === "Pulse from server") {
       log.info(`账户 ${index + 1} 接收到服务器心跳`);
       setTimeout(() => startHeartbeat(index), 10000);
@@ -135,7 +134,7 @@ async function connectWebSocket(index, userId) {
   };
 }
 
-// 倒计时和积分更新
+// 启动倒计时和积分更新
 function startCountdownAndPoints(index) {
   clearInterval(倒计时间隔[index]);
   updateCountdownAndPoints(index);
@@ -146,46 +145,59 @@ function startCountdownAndPoints(index) {
 async function updateCountdownAndPoints(index) {
   const restartThreshold = 60000;
   const now = new Date();
-  const nextHeartbeat = new Date(上次更新时间[index]);
-  nextHeartbeat.setMinutes(nextHeartbeat.getMinutes() + 15);
-  const diff = nextHeartbeat.getTime() - now.getTime();
 
-  if (diff > 0) {
-    const minutes = Math.floor(diff / 60000);
-    const seconds = Math.floor((diff % 60000) / 1000);
-    倒计时[index] = `${minutes}m ${seconds}s`;
+  if (上次更新时间[index]) {
+    const nextHeartbeat = new Date(上次更新时间[index]);
+    nextHeartbeat.setMinutes(nextHeartbeat.getMinutes() + 15);
+    const diff = nextHeartbeat.getTime() - now.getTime();
 
-    const maxPoints = 25;
-    const timeElapsedMinutes = (now - new Date(上次更新时间[index])) / (60 * 1000);
-    潜在积分[index] = Math.min(maxPoints, (timeElapsedMinutes / 15) * maxPoints);
+    if (diff > 0) {
+      const minutes = Math.floor(diff / 60000);
+      const seconds = Math.floor((diff % 60000) / 1000);
+      倒计时[index] = `${minutes}m ${seconds}s`;
+
+      const maxPoints = 25;
+      const timeElapsedMinutes = (now.getTime() - new Date(上次更新时间[index]).getTime()) / (60 * 1000);
+      let newPoints = Math.min(maxPoints, (timeElapsedMinutes / 15) * maxPoints);
+      newPoints = parseFloat(newPoints.toFixed(2));
+
+      if (Math.random() < 0.1) {
+        const bonus = Math.random() * 2;
+        newPoints = Math.min(maxPoints, newPoints + bonus);
+      }
+
+      潜在积分[index] = newPoints;
+    } else {
+      倒计时[index] = "Calculating...";
+      潜在积分[index] = 25;
+      上次更新时间[index] = now;
+    }
   } else {
     倒计时[index] = "Calculating...";
-    潜在积分[index] = 25;
+    潜在积分[index] = 0;
+    上次更新时间[index] = now;
   }
 
   logAllAccounts();
-}
-
-// 显示账户详细数据
-function displayAccountData(index) {
-  console.log(chalk.cyan(`======= 账户 ${index + 1} =======`));
-  console.log(chalk.whiteBright(`邮箱: ${账户[index].邮箱}`));
-  console.log(`用户 ID: ${用户ID[index]}`);
-  console.log(chalk.green(`积分总数: ${积分总数[index]}`));
-  console.log(chalk.green(`今天积分: ${今天积分[index]}`));
-  console.log(chalk.whiteBright(`消息: ${消息[index]}`));
-  if (使用代理) {
-    const 代理 = 代理列表[index % 代理列表.length];
-    console.log(chalk.hex('#FFA500')(`代理: ${代理.主机}:${代理.端口} (用户: ${代理.用户名})`));
-  }
-  console.log(chalk.cyan("_____________________________________________"));
 }
 
 // 日志输出所有账户
 function logAllAccounts() {
   console.clear();
   displayHeader();
-  账户.forEach((_, i) => displayAccountData(i));
+  账户.forEach((_, i) => {
+    console.log(chalk.cyan(`======= 账户 ${i + 1} =======`));
+    console.log(chalk.whiteBright(`邮箱: ${账户[i].邮箱}`));
+    console.log(`用户 ID: ${用户ID[i]}`);
+    console.log(chalk.green(`积分总数: ${积分总数[i]}`));
+    console.log(chalk.green(`今天积分: ${今天积分[i]}`));
+    console.log(chalk.whiteBright(`消息: ${消息[i]}`));
+    if (使用代理) {
+      const 代理 = 代理列表[i % 代理列表.length];
+      console.log(chalk.hex('#FFA500')(`代理: ${代理.主机}:${代理.端口} (用户: ${代理.用户名})`));
+    }
+    console.log(chalk.cyan("_____________________________________________"));
+  });
 }
 
 // 心跳功能
@@ -211,3 +223,4 @@ process.on('SIGINT', () => {
   });
   process.exit(0);
 });
+

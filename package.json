@@ -2,7 +2,6 @@
   "name": "teneo-bot",
   "version": "1.0.0",
   "type": "module",
-  "description": "Teneo 机器人是一个强大的工具，旨在帮助您自动化 Teneo 空投任务。",
   "main": "index.js",
   "scripts": {
     "start": "node --no-warnings start.js",
@@ -12,15 +11,6 @@
     "build": "rm -rf app && javascript-obfuscator --config build-config.json",
     "test": "node test.js"
   },
-  "keywords": [
-    "teneo",
-    "teneo-bot",
-    "teneo-node",
-    "teneo-extension",
-    "airdropinsider"
-  ],
-  "author": "qklxsqf",
-  "license": "MIT",
   "dependencies": {
     "axios": "^1.7.7",
     "blessed": "^0.1.81",

@@ -71,12 +71,19 @@ git clone https://github.com/ziqing888/teneo-node-bot.git && cd teneo-node-bot
 npm install && npm run setup
 ```
 进入 teneo-node-bot目录。
+
 进入 accounts 文件夹并将 accounts_tmp.js 重命名为 accounts.js。
+
 打开 accounts.js 配置您的账户。
+
 进入 config 文件夹并根据需要调整 config.js。
+
 如果需要使用代理，打开 proxy_list.js 配置代理（如果有5个账户，建议使用代理）。
+
 返回 Teneo-Bot 目录。
+
 启动应用，打开 命令提示符 或 Power Shell。
+
 运行机器人
 ```bash
 npm run start

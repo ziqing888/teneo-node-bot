@@ -1,15 +1,40 @@
 {
   "name": "teneo-bot",
   "version": "1.0.0",
-  "description": "用于账户管理和代理连接的自动化机器人",
+  "type": "module",
+  "description": "Teneo 机器人是一个强大的工具，旨在帮助您自动化 Teneo 空投任务。",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node --no-warnings start.js",
+    "setup": "node --no-warnings setup.js",
+    "regist": "node app/register.js",
+    "dev": "node --no-warnings index.js",
+    "build": "rm -rf app && javascript-obfuscator --config build-config.json",
+    "test": "node test.js"
   },
+  "keywords": [
+    "teneo",
+    "teneo-bot",
+    "teneo-node",
+    "teneo-extension",
+    "airdropinsider"
+  ],
+  "author": "qklxsqf",
+  "license": "MIT",
   "dependencies": {
     "axios": "^1.7.7",
-    "chalk": "^4.1.2",
+    "blessed": "^0.1.81",
+    "chalk": "^5.3.0",
+    "fs": "^0.0.2-security",
     "https-proxy-agent": "^7.0.5",
-    "ws": "^8.18.0"
+    "input": "^1.0.1",
+    "js-yaml": "^4.1.0",
+    "moment-timezone": "^0.5.45",
+    "node-fetch": "^3.3.2",
+    "socks-proxy-agent": "^8.0.4",
+    "twisters": "^1.1.0",
+    "winston": "^3.13.0",
+    "ws": "^8.18.0",
+    "yaml": "^2.6.0"
   }
 }

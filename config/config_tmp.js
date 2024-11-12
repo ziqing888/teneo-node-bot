@@ -1,3 +1,3 @@
 export class Config {
-  static DISPLAY = "BLESS"; 
+  static DISPLAY = "TWIST"; 
 }

@@ -7,22 +7,35 @@ Teneo 机器人是一个自动化的脚本项目，用于批量管理多个账�
 
 
 机器人功能
-多账户支持
-简易账户注册
-代理支持 (HTTP / SOCKS5)
-自动运行 Teneo 节点
-TENEO 扩展节点空投
-TENEO 节点空投
-➡️ 下载扩展程序: https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm
 
+多账户支持
+
+简易账户注册
+
+代理支持 (HTTP / SOCKS5)
+
+自动运行 Teneo 节点
+
+TENEO 扩展节点空投
+
+TENEO 节点空投
+
+➡️ 下载扩展程序: https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm
 安装扩展程序
+
 登录或创建账户
+
 输入推荐码 : XnE27 (使用推荐码获得2500积分)
+
 验证电子邮件
+
 运行节点扩展
+
 出发吧！
-设置并配置机器人
-Linux
+
+## 设置并配置机器人
+
+### Linux
 克隆项目仓库
 ```bash
 git clone https://github.com/ziqing888/teneo-node-bot.git && cd teneo-node-bot
@@ -47,7 +60,7 @@ nano config/proxy_list.js
 ```bash
 npm run start
 ```
-Windows
+## Windows
 打开 命令提示符 或 Power Shell。
 克隆项目仓库
 ```bash
@@ -68,7 +81,7 @@ npm install && npm run setup
 ```bash
 npm run start
 ```
-批量注册机器人
+## 批量注册机器人
 克隆项目仓库
 ```bash
 git clone https://github.com/ziqing888/teneo-node-bot && cd teneo-node-bot
@@ -83,7 +96,7 @@ npm install
 ```bash
 npm run regist
 ```
-更新机器人
+## 更新机器人
 按以下步骤更新机器人：
 
 运行
@@ -104,7 +117,7 @@ git stash && git pull
 npm update
 ```
 启动机器人
-重要说明（请务必阅读）
+## 重要说明（请务必阅读）
 DYOR - 自行研究
 
 如何获得 Teneo 积分？

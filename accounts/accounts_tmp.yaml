@@ -1,0 +1,6 @@
+accounts:
+  - email: email1:password1         # 账户信息：邮箱和密码，用冒号分隔
+    proxy: http://proxyUser:proxyPass@proxyHost:proxyPort   # 代理信息：包含代理用户名、密码、主机和端口
+
+  - email: email2:password2         # 另一个账户信息
+    proxy: http://proxyUser:proxyPass@proxyHost:proxyPort   # 另一个账户的代理信息
